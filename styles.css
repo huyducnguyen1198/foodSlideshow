@@ -1,0 +1,29 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eaeaea; /* Optional: background color */
+}
+
+#slideshow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: adds shadow for depth */
+    border-radius: 10px; /* Optional: adds rounded corners */
+    position: relative;
+    max-width: 80vw; /* Maximum width */
+    width: 100%; /* Ensure it takes up its maximum width */
+    height: 80vh; /* Height is limited to 80% of the viewport height */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#slideshow img {
+    width: auto; /* Maintain aspect ratio */
+    max-width: 100%; /* Ensure it does not overflow its container */
+    max-height: 100%; /* Ensure it does not overflow its container */
+    object-fit: contain; /* Preserve aspect ratio while fitting in the container */
+}
