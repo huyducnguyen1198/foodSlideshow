@@ -13,14 +13,25 @@
             align-items: center;
             background-color: whitesmoke; /* Set background color to black */
         } 
-        #slideshow-container {
-            width: 80%;
-            height: 80vh; /* 80% of viewport height */
-            overflow: hidden;
-            position: relative;
-            border: 2px solid black;
-        }
+		#slideshow-container {
+			width: 80vw;
+			height: 80vh; /* 80% of viewport height */
+			overflow: hidden;
+			position: relative;
+			border: 5px solid #4b230b; /* Alternative shade of orange */
+			border-radius: 10px; /* Adjust border radius as needed */
+			padding: 1px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+		}
 
+
+
+		.img{
+			width: 75vw;
+			height: 75vh;
+			border-radius: 3px;
+
+		}
         #slideshow {
             width: 100%;
             height: 100%;
@@ -45,6 +56,7 @@
             padding: 5px;
             text-align: left;
             z-index: 1; /* Ensure captions appear above slides */
+            border-radius: 10px; /* Adjust border radius as needed */
         }
 		.text-tag {
             position: absolute;
@@ -56,7 +68,34 @@
 
             padding: 5px;
             z-index: 1; /* Ensure text tag appears above slides */
+			border-radius: 10px; /* Adjust border radius as needed */
         }
+
+
+
+				/* Fade animation */
+		.fade-animation {
+			animation: fadeEffect 1s;
+		}
+
+		@keyframes fadeEffect {
+			from {opacity: 0;}
+			to {opacity: 1;}
+		}
+
+		/* Slide from left */
+		.slide-left-animation {
+			animation: slideLeftEffect 1s;
+		}
+
+		@keyframes slideLeftEffect {
+			from {transform: translateX(-100%);}
+			to {transform: translateX(0);}
+		}
+
+		/* Add more animations as needed */
+
+
     </style>
 </head>
 <body>
@@ -66,19 +105,20 @@
 
     <script src="imageList.js"></script>
     <script>
-        const images = imageList; // imageList is defined in imageList.js
+        const images = imageList;
 
         const slideshowContainer = document.getElementById('slideshow-container');
         const slideshow = document.getElementById('slideshow');
 
         let currentIndex = 0;
 
-        function showSlide(index) {
-            slideshow.style.transform = `translateX(-${index * 100}%)`;
-        }
+                    
 
         function nextSlide() {
             currentIndex = (currentIndex + 1) % images.length;
+            if (currentIndex === 0) {
+                currentIndex = 0;
+            }
             showSlide(currentIndex);
         }
 
@@ -87,36 +127,30 @@
             showSlide(currentIndex);
         }
 
-		 // Load images
-		 images.forEach(image => {
-			const imgContainer = document.createElement('div');
-			imgContainer.classList.add('slide');
+        images.forEach(image => {
+            const imgContainer = document.createElement('div');
+            imgContainer.classList.add('slide');
 
             const img = new Image();
             img.src = image;
-            img.classList.add('slide');
-            
-            // Caption
+            img.classList.add('slide', 'img');
+
             const caption = document.createElement('div');
             caption.classList.add('caption');
-            caption.textContent = image.split('/').pop(); // Extract filename
+            caption.textContent = image.split('/').pop();
             img.appendChild(caption);
-            
 
-			  // Text Tag
-			  const textTag = document.createElement('text');
+            const textTag = document.createElement('text');
             textTag.classList.add('text-tag');
-            textTag.textContent = image.split('/').pop().split('.').shift(); // Extract filename without extension
+            textTag.textContent = image.split('/').pop().split('.').shift();
             
-            // Append elements
             imgContainer.appendChild(img);
             imgContainer.appendChild(textTag);
             
             slideshow.appendChild(imgContainer);
         });
 
-        // Start slideshow
-        setInterval(nextSlide, 5000); // Change slide every 3 seconds
+        setInterval(nextSlide, 5000); // Change slide every 5 seconds
     </script>
 </body>
 </html>
